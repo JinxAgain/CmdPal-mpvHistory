@@ -1,0 +1,45 @@
+# Visual Studio cache and local settings
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+
+# Packaging artifacts
+AppPackages/
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+*.msixupload
+*.appxupload
+
+# Testing
+TestResults/
+*.trx
+
+# NuGet/packages
+packages/
+*.nupkg
+project.lock.json
+
+# Logs and temp
+*.log
+*.tlog
+*.diff
+*.orig
+*.tmp
+
+# Others
+*.rsuser
+*.opendb
+*.VC.db
+
+# Local tooling
+launchSettings.json
+Properties/ServiceDependencies/

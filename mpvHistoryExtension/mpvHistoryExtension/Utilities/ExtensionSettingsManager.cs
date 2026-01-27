@@ -21,7 +21,16 @@ public class ExtensionSettingsManager : JsonSettingsManager
 
     public ExtensionSettingsManager()
     {
-        FilePath = GetSettingsFilePath();
+        try 
+        {
+            // Use Roaming AppData which is more reliable for settings persistence
+            FilePath = GetSettingsFilePath();
+        }
+        catch (Exception ex)
+        {
+            // Fallback or log if needed, though we can't easily log here
+            System.Diagnostics.Debug.WriteLine($"Error setting file path: {ex.Message}");
+        }
 
         _playerExecutable = new ChoiceSetSetting(
             Namespaced("player"),
@@ -35,19 +44,33 @@ public class ExtensionSettingsManager : JsonSettingsManager
         _historyFilePath = new TextSetting(
             Namespaced("historyPath"),
             "History File Path",
-            "Full path to your mpvHistory.log file",
+            "Full path to your mpvHistory.log file (e.g. C:\\...\\mpvHistory.log)",
             "");
 
         Settings.Add(_playerExecutable);
         Settings.Add(_historyFilePath);
+        
+        // Load settings from file upon initialization
+        LoadSettings();
+
+        // Save settings whenever they change
+        Settings.SettingsChanged += (s, a) =>
+        {
+            SaveSettings();
+        };
     }
 
     private static string GetSettingsFilePath()
     {
         var directory = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
             "mpvHistoryExtension");
-        Directory.CreateDirectory(directory);
+            
+        if (!Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+        
         return Path.Combine(directory, "settings.json");
     }
 }

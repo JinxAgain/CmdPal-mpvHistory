@@ -23,11 +23,8 @@ public sealed partial class LaunchPlayerCommand : InvokableCommand
     {
         var player = _settingsManager.PlayerExecutable;
         
-        // Format time as seconds for mpv --start argument
-        var startTime = _item.Time.ToString(System.Globalization.CultureInfo.InvariantCulture);
-        
-        // Args: --start=TIME "FILE"
-        var processArgs = $"--start={startTime} \"{_item.FilePath}\"";
+        // Just pass the file path, let mpv/scripts handle resume
+        var processArgs = $"\"{_item.FilePath}\"";
 
         try
         {
@@ -39,6 +36,12 @@ public sealed partial class LaunchPlayerCommand : InvokableCommand
                 WindowStyle = ProcessWindowStyle.Hidden,
                 CreateNoWindow = true
             };
+
+            var fileDir = System.IO.Path.GetDirectoryName(_item.FilePath);
+            if (!string.IsNullOrEmpty(fileDir))
+            {
+                psi.WorkingDirectory = fileDir;
+            }
             
             var process = Process.Start(psi);
             

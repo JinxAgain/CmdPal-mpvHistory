@@ -4,7 +4,7 @@ A Command Palette extension that allows you to browse your **mpv** or **mpv.net*
 
 ## Features
 
-*   📺 **Resume Playback**: Automatically lists recently played videos and resumes exactly where you stopped.
+*   📺 **Playback History**: Browse your recently played videos and launch them instantly. (Resume functionality depends on your mpv configuration/scripts)
 *   🚀 **Support for mpv & mpv.net**: Compatible with both the CLI `mpv` and the modern `mpv.net` player.
 *   ⚙️ **Integrated Settings**: Configure your player and history path directly within the Command Palette Settings panel.
 *   🔇 **Silent Launch**: Launches the player instantly without opening a distracting terminal window.
@@ -14,6 +14,7 @@ A Command Palette extension that allows you to browse your **mpv** or **mpv.net*
 1.  **Command Palette** installed.
 2.  **mpv** or **mpv.net** installed and added to your system `PATH` environment variable.
 3.  **Logging Enabled**: You need to configure mpv to save a log file so this extension can read it.
+4.  **SimpleHistory Script**: This extension works best with the [SimpleHistory](https://github.com/Eisa01/mpv-scripts?tab=readme-ov-file#simplehistory) script to handle resume playback functionality.
 
 ### Enabling History Logging
 
